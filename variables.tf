@@ -24,3 +24,9 @@ variable "system_name" {
   type        = string
   description = "System name that the infrastructure is created for"
 }
+
+variable "final_snapshot_identifier" {
+  type        = string
+  description = "Final snapshot identifier"
+  default     = null
+}
