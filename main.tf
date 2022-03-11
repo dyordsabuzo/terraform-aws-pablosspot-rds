@@ -1,15 +1,16 @@
 resource "aws_rds_cluster" "cluster" {
-  cluster_identifier     = "${var.system_name}-cluster"
-  engine                 = "aurora-mysql"
-  engine_version         = "5.7.mysql_aurora.2.07.1"
-  availability_zones     = data.aws_availability_zones.zones.names
-  database_name          = aws_ssm_parameter.dbname.value
-  master_username        = aws_ssm_parameter.dbuser.value
-  master_password        = aws_ssm_parameter.dbpassword.value
-  db_subnet_group_name   = aws_db_subnet_group.dbsubnet.id
-  engine_mode            = "serverless"
-  vpc_security_group_ids = [aws_security_group.rds_secgrp.id]
-  skip_final_snapshot    = true
+  cluster_identifier        = "${var.system_name}-cluster"
+  engine                    = "aurora-mysql"
+  engine_version            = "5.7.mysql_aurora.2.07.1"
+  availability_zones        = data.aws_availability_zones.zones.names
+  database_name             = aws_ssm_parameter.dbname.value
+  master_username           = aws_ssm_parameter.dbuser.value
+  master_password           = aws_ssm_parameter.dbpassword.value
+  db_subnet_group_name      = aws_db_subnet_group.dbsubnet.id
+  engine_mode               = "serverless"
+  vpc_security_group_ids    = [aws_security_group.rds_secgrp.id]
+  skip_final_snapshot       = var.final_snapshot_identifier != null
+  final_snapshot_identifier = var.final_snapshot_identifier
 
   scaling_configuration {
     min_capacity = 1
