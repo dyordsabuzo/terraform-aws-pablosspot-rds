@@ -45,7 +45,7 @@ resource "aws_ssm_parameter" "dbhost" {
 resource "random_password" "password" {
   length           = 16
   special          = true
-  override_special = "_%@ "
+  override_special = "!#$%&*()-_=+[]{}<>:?"
 }
 
 resource "aws_db_subnet_group" "dbsubnet" {
